@@ -1,5 +1,4 @@
 from typing import List
-from order import Order
 
 class Coffee:
     all = []
@@ -8,7 +7,6 @@ class Coffee:
         self.name = name
         Coffee.all.append(self)
 
-    
     @property
     def name(self):
         return self._name
@@ -21,14 +19,14 @@ class Coffee:
             raise ValueError("Coffee name must be at least 3 characters long.")
         self._name = value
 
-    
     def orders(self) -> List["Order"]:
+        from .order import Order
         return [o for o in Order.all if o.coffee is self]
 
     def customers(self) -> List["Customer"]:
+        from .customer import Customer
         return list({o.customer for o in self.orders()})
 
-    
     def num_orders(self) -> int:
         return len(self.orders())
 
